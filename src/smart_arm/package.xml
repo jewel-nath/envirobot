@@ -3,9 +3,9 @@
 <package format="3">
   <name>smart_arm</name>
   <version>0.0.0</version>
-  <description>TODO: Package description</description>
-  <maintainer email="devjewel01@stud.cou.ac.bd">jewel</maintainer>
-  <license>TODO: License declaration</license>
+  <description>EnviroBot's rover and arm model in URDF/xacro, with its meshes and an RViz launch file</description>
+  <maintainer email="58494211+jewel-nath@users.noreply.github.com">Jewel Nath</maintainer>
+  <license>MIT</license>
 
   <depend>rclpy</depend>
 

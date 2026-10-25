@@ -24,10 +24,10 @@ setup(
     ],
     install_requires=['setuptools'],
     zip_safe=True,
-    maintainer='jewel',
-    maintainer_email='devjewel01@stud.cou.ac.bd',
-    description='TODO: Package description',
-    license='TODO: License declaration',
+    maintainer='Jewel Nath',
+    maintainer_email='58494211+jewel-nath@users.noreply.github.com',
+    description="EnviroBot's rover and arm model in URDF/xacro, with its meshes and an RViz launch file",
+    license='MIT',
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
