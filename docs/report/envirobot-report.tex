@@ -213,7 +213,7 @@ The team first moved the model joint by joint in RViz, with a slider for each jo
   \label{fig:rviz}
 \end{figure}
 
-The team designed the full autonomous pick-up on this base (Fig.~\ref{fig:pipeline}): a ROS~2 node runs the detector on each camera frame and passes on the class and position of each item; a target is chosen from it; MoveIt plans the arm's path to it; and the Arduino moves the joints along the plan. Each part was shown on its own, as Sections~\ref{sec:eval} and~\ref{sec:demo} describe; joining them into one program is the next step (Section~\ref{sec:future}).
+The team designed the full autonomous pick-up on this base (Fig.~\ref{fig:pipeline}): a ROS~2 node runs the detector on each camera frame and passes on the class and position of each item; a target is chosen from it; MoveIt plans the arm's path to it; and the Arduino moves the joints along the plan. Two of these parts were shown on their own: the detector, running live on a laptop, and the arm picking an object up off the floor, as Sections~\ref{sec:eval} and~\ref{sec:demo} describe. Planning with MoveIt stayed in the design; setting it up and joining the parts into one program are the next steps (Section~\ref{sec:future}).
 
 \begin{figure}[htbp]
   \centering

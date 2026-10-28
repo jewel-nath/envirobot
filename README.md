@@ -22,8 +22,17 @@ drivers.
 **[EnviroBot: A Mobile Robotic Arm that Detects and Picks Up Waste — Design, YOLOv8 Waste Detection and Prototype](docs/report/envirobot-report.pdf)**
 (October 2026, 14 pages): the build, the electronics, the phone control, the
 arm model, the waste detector and its evaluation, with 12 diagrams. By Jewel
-Nath, Tasmiara Jahan Toma and Tanjina Akter. Its source and the diagrams are
-in [docs/report/](docs/report/README.md) and [docs/diagrams/](docs/diagrams/README.md).
+Nath, Tasmiara Jahan Toma and Tanjina Akter; on Zenodo as
+[doi:10.5281/zenodo.23739491](https://doi.org/10.5281/zenodo.23739491). Its
+source and the diagrams are in [docs/report/](docs/report/README.md) and
+[docs/diagrams/](docs/diagrams/README.md), and the project's page is
+[jewelnath.dev/envirobot](https://jewelnath.dev/envirobot).
+
+To cite it:
+
+> Nath, J., Toma, T. J., & Akter, T. (2026). *EnviroBot: A Mobile Robotic Arm
+> that Detects and Picks Up Waste - Design, YOLOv8 Waste Detection and
+> Prototype* (Version 1.0). Zenodo. https://doi.org/10.5281/zenodo.23739491
 
 ## What it does
 

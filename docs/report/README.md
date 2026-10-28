@@ -5,7 +5,8 @@ Design, YOLOv8 Waste Detection and Prototype.** Version 1.0, October 2026.
 
 By Jewel Nath, Tasmiara Jahan Toma and Tanjina Akter (Comilla University).
 
-[Read the PDF](envirobot-report.pdf) (14 pages, one column).
+[Read the PDF](envirobot-report.pdf) (14 pages, one column). On Zenodo:
+[doi:10.5281/zenodo.23739491](https://doi.org/10.5281/zenodo.23739491).
 
 It describes EnviroBot's mechanical build, electronics, phone control, arm
 model and YOLOv8 waste detection, the team's evaluation of the detector, the
