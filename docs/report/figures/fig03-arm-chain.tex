@@ -1,0 +1,24 @@
+% The arm's joints, from src/smart_arm/description/arm.xacro (read 2026-10-28),
+% named as on the phone app's arm screen. Ranges are the URDF limits in degrees.
+\begin{tikzpicture}[node distance=4mm and 3mm,
+    jnt/.style={mcubox, minimum width=27mm, minimum height=15mm},
+    lnk/.style={hwbox, minimum width=18mm, font=\scriptsize}]
+  \node[lnk] (base) {base\_link};
+  \node[jnt, right=of base] (j1) {\textbf{Waist}\\\scriptsize joint1, about $z$\\\scriptsize 89$^\circ$ to 268$^\circ$};
+  \node[lnk, right=of j1] (plat) {platform};
+  \node[jnt, right=of plat] (j2) {\textbf{Shoulder}\\\scriptsize joint2, about $x$\\\scriptsize 0$^\circ$ to 179$^\circ$};
+  \node[lnk, right=of j2] (low) {lower\_arm};
+  \node[jnt, below=10mm of low] (j3) {\textbf{Elbow}\\\scriptsize joint3, about $x$\\\scriptsize $-97^\circ$ to 97$^\circ$};
+  \node[lnk, left=of j3] (top) {top\_arm};
+  \node[jnt, left=of top] (j4) {\textbf{Wrist pitch}\\\scriptsize joint4, about $x$\\\scriptsize $-97^\circ$ to 97$^\circ$};
+  \node[lnk, left=of j4] (wr) {wrist};
+  \node[jnt, left=of wr] (j5) {\textbf{Wrist roll}\\\scriptsize joint5, about $y$\\\scriptsize $-182^\circ$ to 0$^\circ$};
+  \node[lnk, below=10mm of j5] (claw) {clawbase};
+  \node[jnt, right=of claw, minimum width=42mm] (j6) {\textbf{Gripper}\\\scriptsize joint6, one servo, about $z$, $-29^\circ$ to 0$^\circ$;\\\scriptsize joint7 mirrors it ($\times{-1}$)};
+  \node[lnk, right=of j6, align=center] (fing) {clawr, clawl\\(fingers)};
+
+  \foreach \a/\b in {base/j1, j1/plat, plat/j2, j2/low, top/j3, j4/top, wr/j4, j5/wr, claw/j6, j6/fing}
+    \draw[thick] (\a) -- (\b);
+  \draw[thick] (low) -- (j3);
+  \draw[thick] (j5) -- (claw);
+\end{tikzpicture}

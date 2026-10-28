@@ -1,0 +1,14 @@
+% Manual control, from the team report (Sections 3.4.1-3.4.2) and the app's
+% screenshot: a pair of buttons per joint, a speed slider, Save, Run and Reset.
+\begin{tikzpicture}[node distance=7mm and 6mm]
+  \node[uibox, minimum width=56mm, align=center] (app)
+    {\textbf{Phone app} (MIT App Inventor)\\\scriptsize $\pm$ for grip, wrist pitch, wrist roll, elbow, shoulder, waist\\\scriptsize arm speed slider $\cdot$ Save, Run, Reset $\cdot$ drive buttons};
+  \node[uibox, below=of app, minimum width=34mm] (bt) {\textbf{Bluetooth}\\\scriptsize the app's commands};
+  \node[mcubox, below=of bt, minimum width=44mm] (ard) {\textbf{Arduino Uno}\\\scriptsize reads each command};
+  \node[mcubox, below left=8mm and -12mm of ard, minimum width=30mm] (arm) {\textbf{PCA9685}\\\scriptsize the arm's six servos};
+  \node[mcubox, below right=8mm and -12mm of ard, minimum width=30mm] (wheels) {\textbf{2 $\times$ BTS7960}\\\scriptsize the four wheel motors};
+  \draw[flow] (app) -- (bt);
+  \draw[flow] (bt) -- (ard);
+  \draw[flow] (ard) -- (arm);
+  \draw[flow] (ard) -- (wheels);
+\end{tikzpicture}

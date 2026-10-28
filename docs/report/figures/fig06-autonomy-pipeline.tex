@@ -1,0 +1,17 @@
+% The autonomous pick-up as the team report designs it (Sections 3.5.14 and 3.5.17).
+% Its parts were shown separately; the whole chain was not run as one program.
+\begin{tikzpicture}[node distance=5mm and 7mm]
+  \node[visbox, minimum width=22mm] (cam) {\textbf{Camera}\\\scriptsize frames};
+  \node[visbox, right=of cam, minimum width=26mm] (det) {\textbf{YOLOv8 node}\\\scriptsize class and box};
+  \node[hostbox, right=of det, minimum width=26mm] (tgt) {\textbf{Target}\\\scriptsize where to grasp};
+  \node[hostbox, right=of tgt, minimum width=26mm] (moveit) {\textbf{MoveIt}\\\scriptsize plan the arm's path};
+  \node[mcubox, right=of moveit, minimum width=24mm] (ard) {\textbf{Arduino}\\\scriptsize joint angles};
+  \node[mcubox, right=of ard, minimum width=20mm] (arm) {\textbf{Arm}\\\scriptsize pick, drop in bin};
+  \foreach \a/\b in {cam/det, det/tgt, tgt/moveit, moveit/ard, ard/arm}
+    \draw[dataflow] (\a) -- (\b);
+  \begin{scope}[on background layer]
+    \node[group, draw=hostedge, fit=(det) (tgt) (moveit), label={[grouplabel, anchor=south west]north west:ROS 2 Humble}] {};
+  \end{scope}
+  \node[below=6mm of tgt, font=\scriptsize, align=center, text=hwedge] (shown)
+    {Shown on their own: live detection (on a laptop), the arm's model in RViz, and the arm picking up an object.};
+\end{tikzpicture}

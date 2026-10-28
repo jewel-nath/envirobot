@@ -1,0 +1,26 @@
+% What EnviroBot showed in 2024, and open steps: the gaps found in this report
+% and the team report's own Future Work (Section 5.2), read 2026-10-28.
+\begin{tikzpicture}[node distance=4mm and 8mm,
+    col/.style={font=\small\sffamily\bfseries, anchor=south},
+    item/.style={box, minimum width=46mm, text width=43mm, align=flush center,
+                 font=\scriptsize, execute at begin node={\hyphenpenalty=10000\exhyphenpenalty=10000\rightskip=0pt plus 1fil\leftskip=0pt plus 1fil}}]
+  \node[col, text=hostedge] (h1) at (0,0) {Shown (2024)};
+  \node[col, text=uiedge] (h2) at (55mm,0) {Open next steps};
+  \node[col, text=visedge] (h3) at (110mm,0) {Further directions};
+
+  \node[item, hostbox, below=2mm of h1] (a1) {a rover that carries the arm, driven from a phone};
+  \node[item, hostbox, below=of a1] (a2) {a 6-joint arm that picks objects off the floor};
+  \node[item, hostbox, below=of a2] (a3) {YOLOv8 that labels waste in a live camera view, on a laptop};
+  \node[item, hostbox, below=of a3] (a4) {an arm model in URDF, moved in RViz};
+
+  \node[item, uibox, below=2mm of h2] (b1) {one program from camera to grasp: detection, target, MoveIt, Arduino};
+  \node[item, uibox, below=of b1] (b2) {detection on the robot's own computer};
+  \node[item, uibox, below=of b2] (b3) {a measured pick-up success rate, on a fixed set of objects};
+
+  \node[item, visbox, below=2mm of h3] (c1) {driving a path and collecting on its own};
+  \node[item, visbox, below=of c1] (c2) {sorting into separate bins by class};
+  \node[item, visbox, below=of c2] (c3) {Lidar, a depth camera and an industrial-grade arm (the team's report)};
+
+  \draw[flow, hwedge] (a1.east) ++(1mm,0) -- ($(b1.west)+(-1mm,0)$);
+  \draw[flow, hwedge] (b1.east) ++(1mm,0) -- ($(c1.west)+(-1mm,0)$);
+\end{tikzpicture}

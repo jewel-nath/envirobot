@@ -1,0 +1,52 @@
+% EnviroBot's parts and links, from the circuit diagram of 2024-01-14 and the
+% team report's parts list (read 2026-10-28).
+\begin{tikzpicture}[node distance=7mm and 12mm]
+  % The two controllers in the middle
+  \node[hostbox, minimum width=36mm, minimum height=16mm] (pi)
+    {\textbf{Raspberry Pi 3 B}\\\scriptsize vision computer};
+  \node[mcubox, right=26mm of pi, minimum width=36mm, minimum height=16mm] (ard)
+    {\textbf{Arduino Uno}\\\scriptsize motion controller};
+  \draw[flow, <->] (pi) -- node[lbl] {serial (UART)} (ard);
+
+  % Vision on the left
+  \node[visbox, above=10mm of pi, minimum width=36mm] (cam)
+    {\textbf{USB camera}\\\scriptsize under the arm, facing forward};
+  \node[visbox, below=10mm of pi, minimum width=36mm] (yolo)
+    {\textbf{YOLOv8 model}\\\scriptsize plastic, paper, trash};
+  \draw[flow] (cam) -- node[lbl] {USB} (pi);
+  \draw[dataflow] (yolo) -- (pi);
+
+  % Control from the phone
+  \node[uibox, above=10mm of ard, minimum width=36mm] (app)
+    {\textbf{Phone app}\\\scriptsize MIT App Inventor};
+  \draw[flow] (app) -- node[lbl] {Bluetooth} (ard);
+
+  % Arm and wheels on the right
+  \node[mcubox, right=14mm of ard, yshift=11mm, minimum width=34mm] (pca)
+    {\textbf{PCA9685}\\\scriptsize 16-channel servo driver};
+  \node[mcubox, right=8mm of pca, minimum width=30mm] (servos)
+    {\textbf{6 servos}\\\scriptsize the arm and gripper};
+  \node[mcubox, right=14mm of ard, yshift=-11mm, minimum width=34mm] (bts)
+    {\textbf{2 $\times$ BTS7960}\\\scriptsize motor drivers};
+  \node[mcubox, right=8mm of bts, minimum width=30mm] (motors)
+    {\textbf{4 gear motors}\\\scriptsize 12\,V, 300\,rpm};
+  \draw[flow] ($(ard.east)+(0,3mm)$) -- ++(5mm,0) |- (pca.west);
+  \draw[flow] ($(ard.east)+(0,-3mm)$) -- ++(5mm,0) |- (bts.west);
+  \node[font=\scriptsize, above] at ($(pca.west)+(-4mm,0)$) {I$^2$C};
+  \node[font=\scriptsize, above] at ($(bts.west)+(-4mm,0)$) {PWM};
+  \draw[flow] (pca) -- (servos);
+  \draw[flow] (bts) -- (motors);
+
+  % Power
+  \node[hwbox, below=10mm of bts, minimum width=34mm] (bat)
+    {\textbf{LiPo battery}\\\scriptsize 3S, 11.1\,V, 2200\,mAh};
+  \draw[flow] (bat) -- node[lbl] {12\,V} (bts);
+
+  % Legend
+  \node[font=\scriptsize, anchor=north west] at ($(yolo.south west)+(0,-6mm)$)
+    {\tikz\node[hostbox, minimum height=2.5mm, minimum width=4mm, inner sep=0]{};\ computer\quad
+     \tikz\node[mcubox, minimum height=2.5mm, minimum width=4mm, inner sep=0]{};\ motion\quad
+     \tikz\node[visbox, minimum height=2.5mm, minimum width=4mm, inner sep=0]{};\ vision\quad
+     \tikz\node[uibox, minimum height=2.5mm, minimum width=4mm, inner sep=0]{};\ control\quad
+     \tikz\node[hwbox, minimum height=2.5mm, minimum width=4mm, inner sep=0]{};\ power};
+\end{tikzpicture}

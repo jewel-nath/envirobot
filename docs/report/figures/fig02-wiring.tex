@@ -1,0 +1,30 @@
+% The wiring, pin by pin, from the team's circuit diagram (EasyEDA, 2024-01-14).
+\begin{tikzpicture}[node distance=6mm and 10mm,
+    pin/.style={font=\scriptsize, inner sep=1pt}]
+  \node[hostbox, minimum width=30mm, minimum height=26mm, align=left] (pi)
+    {\textbf{Raspberry Pi 3 B}\\[3pt]\scriptsize pin 8: TXD\\\scriptsize pin 10: RXD\\\scriptsize USB: camera};
+  \node[mcubox, right=24mm of pi, minimum width=34mm, minimum height=40mm, align=left] (ard)
+    {\textbf{Arduino Uno}\\[3pt]\scriptsize D0 (RX), D1 (TX)\\\scriptsize A4 (SDA), A5 (SCL)\\\scriptsize D11, D10: PWM\\\scriptsize D6, D5: PWM};
+  \draw[flow] ($(pi.east)+(0,2mm)$) -- node[lbl, above=1pt, fill=none] {TXD $\to$ RX} ($(pi.east-|ard.west)+(0,2mm)$);
+  \draw[flow] ($(pi.east-|ard.west)+(0,-3mm)$) -- node[lbl, below=1pt, fill=none] {RXD $\gets$ TX} ($(pi.east)+(0,-3mm)$);
+
+  \node[mcubox, right=22mm of ard, yshift=17mm, minimum width=34mm, align=left] (pca)
+    {\textbf{PCA9685}\\\scriptsize SDA, SCL, 6 channels used};
+  \node[mcubox, right=22mm of ard, minimum width=34mm, align=left] (b1)
+    {\textbf{BTS7960 \#1}\\\scriptsize RPWM $\gets$ D11, LPWM $\gets$ D10};
+  \node[mcubox, right=22mm of ard, yshift=-17mm, minimum width=34mm, align=left] (b2)
+    {\textbf{BTS7960 \#2}\\\scriptsize RPWM $\gets$ D6, LPWM $\gets$ D5};
+  \draw[flow] (ard.east |- pca) -- node[lbl] {I$^2$C} (pca.west);
+  \draw[flow] (ard.east |- b1) -- (b1.west);
+  \draw[flow] (ard.east |- b2) -- (b2.west);
+
+  \node[mcubox, right=8mm of pca, minimum width=24mm] (sv) {\scriptsize servos 1--6};
+  \node[mcubox, right=8mm of b1, minimum width=24mm] (m12) {\scriptsize motors 1 and 2};
+  \node[mcubox, right=8mm of b2, minimum width=24mm] (m34) {\scriptsize motors 3 and 4};
+  \draw[flow] (pca) -- (sv);
+  \draw[flow] (b1) -- (m12);
+  \draw[flow] (b2) -- (m34);
+
+  \node[hwbox, below=8mm of b2, minimum width=34mm] (v12) {\scriptsize 12\,V to each driver's VS;\\\scriptsize R\_EN and L\_EN tied to 5\,V};
+  \draw[dataflow] (v12) -- (b2);
+\end{tikzpicture}

@@ -17,6 +17,14 @@ In both arm videos the rover is still on a power cable.
 (20 s) shows the arm, the bin, the battery, the Arduino and the motor
 drivers.
 
+## Technical report
+
+**[EnviroBot: A Mobile Robotic Arm that Detects and Picks Up Waste — Design, YOLOv8 Waste Detection and Prototype](docs/report/envirobot-report.pdf)**
+(October 2026, 14 pages): the build, the electronics, the phone control, the
+arm model, the waste detector and its evaluation, with 12 diagrams. By Jewel
+Nath, Tasmiara Jahan Toma and Tanjina Akter. Its source and the diagrams are
+in [docs/report/](docs/report/README.md) and [docs/diagrams/](docs/diagrams/README.md).
+
 ## What it does
 
 - **Finds waste.** A camera and a YOLOv8 model trained in Google Colab
@@ -38,7 +46,7 @@ separate bins (an aim in the report). The robot has one bin.
 
 | | | |
 |---|---|---|
-| <img src="docs/media/envirobot-2024-01-17-slides-design-concept.jpg" width="250" alt="A six-wheel rover with a scoop, drawn in CAD"><br>An early concept: a six-wheel rover with a scoop. Designed only; the built robot uses an arm | <img src="docs/media/envirobot-2023-09-14-arm-model-rviz.jpg" width="250" alt="The arm's model in RViz"><br>**2023-09-14:** the arm's URDF model in RViz, moved joint by joint with sliders | <img src="docs/media/envirobot-2024-01-14-report-arm-sim-and-real.jpg" width="250" alt="The arm's model in MoveIt above the real arm"><br>MoveIt planning the arm's model in RViz (top), and the real arm on its own (bottom) |
+| <img src="docs/media/envirobot-2024-01-17-slides-design-concept.jpg" width="250" alt="A six-wheel rover with a scoop, drawn in CAD"><br>An early concept: a six-wheel rover with a scoop. Designed only; the built robot uses an arm | <img src="docs/media/envirobot-2023-09-14-arm-model-rviz.jpg" width="250" alt="The arm's model in RViz"><br>**2023-09-14:** the arm's URDF model in RViz, moved joint by joint with sliders | |
 | <img src="docs/media/envirobot-2024-01-14-report-circuit.png" width="250" alt="The circuit diagram"><br>The wiring: a Raspberry Pi 3 B, an Arduino Uno, a 16-channel servo driver and two BTS7960 motor drivers | <img src="docs/media/envirobot-2024-01-14-report-control-app.png" width="250" alt="The phone app's arm screen"><br>The phone app's arm screen: a pair of buttons for each joint, a speed slider, and saved moves | |
 
 ## The build
@@ -49,12 +57,19 @@ separate bins (an aim in the report). The robot has one bin.
 
 ## How it works
 
+<img src="docs/diagrams/envirobot-system-overview.png" width="760" alt="System overview: the Raspberry Pi handles vision, the Arduino drives the arm and the wheels, and the phone app gives manual control">
+
+| | |
+|---|---|
+| <img src="docs/diagrams/envirobot-confusion-matrix.png" width="370" alt="The detector's confusion matrix"><br>**Waste detection:** 91% of paper, 94% of plastic and 92% of trash labelled correctly in the team's evaluation | <img src="docs/diagrams/envirobot-arm-chain.png" width="370" alt="The arm's joints in the URDF model"><br>**The arm:** six joints from the waist to the gripper, as modelled in URDF |
+| <img src="docs/diagrams/envirobot-app-control.png" width="370" alt="Manual control from the phone app"><br>**Control:** the phone app drives the rover and each joint over Bluetooth | <img src="docs/diagrams/envirobot-dataset-pipeline.png" width="370" alt="The detector's data and training"><br>**Training:** 1,700 images, three classes, YOLOv8l for 50 epochs |
+
 | | |
 |---|---|
 | Body | A steel base on four wheels, an aluminium arm with six servos (waist, shoulder, elbow, wrist pitch, wrist roll and gripper), and a mesh bin |
 | Motion | Four 12 V gear motors on two BTS7960 drivers, and the arm's servos on a 16-channel servo driver, all run by an Arduino Uno |
 | Vision | A USB webcam and a YOLOv8 model, trained in Google Colab on 1,700 images, many of them from an earlier senior batch's project in our department. The report runs it on a Raspberry Pi 3; the video shows it on a laptop |
-| Planning | ROS 2 Humble and MoveIt, with the arm's model in URDF, as in the report. This repository holds only the model: see [What is here](#what-is-here) |
+| Planning | ROS 2 Humble, with the arm's model in URDF, moved in RViz; the team's report plans the arm's motion with MoveIt. This repository holds only the model: see [What is here](#what-is-here) |
 | Control | The phone app, made in MIT App Inventor, over Bluetooth |
 | Power | A 12 V LiPo battery |
 
@@ -71,6 +86,8 @@ detection model, the Arduino code and the phone app are not in it.
 | [`src/smart_arm/config/`](src/smart_arm/config) | A ros2_control controller setup for the arm's six joints, not loaded by anything yet |
 | [`src/smart_arm/worlds/`](src/smart_arm/worlds) | An empty Gazebo world |
 | [`docs/media/`](docs/media) | The photos and videos on this page, the original HEIC photo, and a cut-out of it on white |
+| [`docs/report/`](docs/report/README.md) | The technical report: its PDF, its LaTeX source and its figures |
+| [`docs/diagrams/`](docs/diagrams/README.md) | Every diagram from the report as its own PDF and PNG |
 
 ## The team
 

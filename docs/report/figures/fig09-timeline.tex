@@ -1,0 +1,29 @@
+% EnviroBot from the first model to the later driving test, from the dated
+% photos, videos, report and repository (read 2026-10-28).
+\begin{tikzpicture}[x=1.15mm, y=1mm]
+  % months from Sep 2023 (0) to Jun 2024 (9), 13 units each; a tick is the 1st
+  \draw[thick, hwedge] (0,0) -- (127,0);
+  \foreach \m/\lab in {0/Sep, 1/Oct, 2/Nov, 3/Dec, 4/Jan, 5/Feb, 6/Mar, 7/Apr, 8/May, 9/Jun} {
+    \draw[hwedge] (\m*13+5,-1.5) -- (\m*13+5,1.5);
+    \node[font=\scriptsize, below] at (\m*13+5,-2) {\lab};
+  }
+  \node[font=\scriptsize\bfseries, below] at (18,-7) {2023};
+  \node[font=\scriptsize\bfseries, below] at (96,-7) {2024};
+  % date / label x / label y / style / text; a negative y puts the label below
+  \foreach \x/\lx/\h/\st/\txt in {
+      10.6/10.6/12/hostbox/{14 Sep 2023: the arm's\\model in RViz},
+      61.3/42/28/mcubox/{11 Jan: videos of the arm\\picking up and of live\\detection},
+      62.6/62.6/-13/visbox/{14 Jan: the\\team report},
+      63.9/80/40/uibox/{17 Jan: the slides for\\the presentation},
+      92.5/96/16/hwbox/{23 Mar: the\\repository},
+      113.3/116/28/mcubox/{11 May: a driving test\\on mecanum wheels}} {
+    \fill[hwedge] (\x,0) circle (0.9);
+    \draw[hwedge, thin] (\x,0) -- (\lx,\h);
+    \pgfmathsetmacro{\below}{\h < 0 ? 1 : 0}
+    \ifdim\below pt > 0.5pt
+      \node[\st, font=\scriptsize, anchor=north, align=center] at (\lx,\h) {\txt};
+    \else
+      \node[\st, font=\scriptsize, anchor=south, align=center] at (\lx,\h) {\txt};
+    \fi
+  }
+\end{tikzpicture}

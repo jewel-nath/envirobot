@@ -1,0 +1,28 @@
+% The YOLOv8 confusion matrix, typed in from the team report's Fig. 4.4 (January 2024).
+% Each column is one true class and sums to 1; empty cells are blank in the original.
+\begin{tikzpicture}[x=17mm, y=12mm]
+  \def\classes{{"Paper","Plastic","Trash","Background"}}
+  % value list per cell: row (predicted, top to bottom), column (true, left to right)
+  \foreach \r/\c/\v in {
+      0/0/0.91, 0/1/0.01, 0/2/0.04, 0/3/0.20,
+      1/0/0.01, 1/1/0.94, 1/2/0.02, 1/3/0.30,
+      2/0/0.05, 2/1/0.05, 2/2/0.92, 2/3/0.50,
+      3/0/0.03, 3/2/0.01} {
+    \pgfmathsetmacro{\shade}{min(100, 8 + 92*\v)}
+    \pgfmathsetmacro{\txt}{\v > 0.45 ? 1 : 0}
+    \fill[mcuedge!\shade!white] (\c, -\r) rectangle ++(1, -1);
+    \ifdim\txt pt > 0.5pt
+      \node[font=\footnotesize\bfseries, text=white] at (\c+0.5, -\r-0.5) {\v};
+    \else
+      \node[font=\footnotesize] at (\c+0.5, -\r-0.5) {\v};
+    \fi
+  }
+  \draw[hwedge, thin] (0,0) grid[step=1] (4,-4);
+  \foreach \i in {0,...,3} {
+    \pgfmathsetmacro{\name}{\classes[\i]}
+    \node[font=\scriptsize, above] at (\i+0.5, 0) {\name};
+    \node[font=\scriptsize, left] at (0, -\i-0.5) {\name};
+  }
+  \node[font=\small\sffamily\bfseries, above=4mm] at (2, 0) {True class};
+  \node[font=\small\sffamily\bfseries, rotate=90] at (-1.25, -2) {Predicted class};
+\end{tikzpicture}

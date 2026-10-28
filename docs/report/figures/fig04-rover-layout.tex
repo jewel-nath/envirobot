@@ -1,0 +1,22 @@
+% The rover from above, drawn to the report's 14 x 14 inch base (Section 3.2.2)
+% and the build photos. The arm and the bin sit at the front; other positions are schematic.
+\begin{tikzpicture}[x=1mm, y=1mm]
+  % Base plate, 14 in = 356 mm, drawn at 1:4
+  \fill[hw, draw=hwedge, thick, rounded corners=1mm] (0,0) rectangle (89,89);
+  \node[font=\scriptsize, text=hwedge, anchor=north west] at (2,87) {stainless steel base};
+  % Wheels at the corners, each on its own gear motor
+  \foreach \x/\y in {-9/6, -9/65, 90/6, 90/65}
+    \fill[black!75, rounded corners=1mm] (\x,\y) rectangle ++(8,18);
+  \foreach \x/\y in {7/15, 7/74, 82/15, 82/74}
+    \node[mcubox, minimum width=11mm, minimum height=5mm, font=\tiny, inner sep=1pt] at (\x,\y) {motor};
+  % Arm at the front, the bin beside it
+  \node[mcubox, circle, minimum size=17mm, font=\scriptsize] at (44.5,70) {arm};
+  \node[hwbox, circle, minimum size=15mm, font=\scriptsize] at (19,70) {bin};
+  % Electronics and battery
+  \node[hostbox, minimum width=26mm, minimum height=14mm, font=\tiny, align=center] at (63,38)
+    {electronics\\Pi, Arduino, drivers};
+  \node[hwbox, minimum width=22mm, minimum height=6mm, font=\tiny] at (44.5,12) {LiPo battery};
+  % Front arrow and size
+  \draw[flow] (44.5,92) -- (44.5,101) node[above, font=\scriptsize] {front};
+  \draw[|<->|, thin] (0,-5) -- node[below, font=\scriptsize] {14 in (356 mm)} (89,-5);
+\end{tikzpicture}

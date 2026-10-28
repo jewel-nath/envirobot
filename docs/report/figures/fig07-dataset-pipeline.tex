@@ -1,0 +1,19 @@
+% The detection model's data and training, from the team report (Sections 3.5.15-3.5.16).
+\begin{tikzpicture}[node distance=5mm and 6mm]
+  \node[visbox, minimum width=27mm, minimum height=16mm] (src)
+    {\textbf{1,700 images}\\\scriptsize plastic, paper, trash;\\\scriptsize many from a senior\\\scriptsize batch's project};
+  \node[visbox, right=of src, minimum width=25mm, minimum height=16mm] (ann)
+    {\textbf{Labelled}\\\scriptsize a box and a class\\\scriptsize for each item};
+  \node[visbox, right=of ann, minimum width=27mm, minimum height=16mm] (aug)
+    {\textbf{Augmented}\\\scriptsize brightness, shifts,\\\scriptsize rotations};
+  \node[visbox, right=of aug, minimum width=25mm, minimum height=16mm] (res)
+    {\textbf{Resized}\\\scriptsize 512 $\times$ 384 px\\\scriptsize (OpenCV)};
+  \node[visbox, below=9mm of res, minimum width=25mm, minimum height=16mm] (split)
+    {\textbf{Split}\\\scriptsize train 1,226 (70\%)\\\scriptsize val 350 (20\%)\\\scriptsize test 176 (10\%)};
+  \node[hostbox, left=of split, minimum width=27mm, minimum height=16mm] (train)
+    {\textbf{YOLOv8l}\\\scriptsize the large model,\\\scriptsize 50 epochs,\\\scriptsize Google Colab};
+  \node[hostbox, left=of train, minimum width=25mm, minimum height=16mm] (eval)
+    {\textbf{Evaluated}\\\scriptsize accuracy curve,\\\scriptsize confusion matrix};
+  \foreach \a/\b in {src/ann, ann/aug, aug/res, res/split, split/train, train/eval}
+    \draw[flow] (\a) -- (\b);
+\end{tikzpicture}
